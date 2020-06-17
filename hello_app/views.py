@@ -1,7 +1,7 @@
 from datetime import datetime
-from flask import Flask, render_template, session, request, redirect, url_for
+from flask import Flask, render_template, session, request, redirect, url_for, flash, make_response
 from . import app, db
-from .models import Attendee
+from .models import Attendee, Conference, Notification
 import logging 
 
 @app.route("/")
@@ -30,6 +30,16 @@ def registration():
             return redirect('/Registration')
         except:
             logging.error('Error occured while saving your information')
-    
-    return render_template('registration.html')
+    else:
+        return render_template('registration.html')
  
+@app.route('/Attendees')
+def attendees():
+    attendees = Attendee.query.order_by(Attendee.submitted_date).all()
+    return render_template('attendees.html', attendees=attendees)
+
+
+@app.route('/Notifications')
+def notifications():
+    notifications = Notification.query.order_by(Notification.id).all()
+    return render_template('notifications.html', notifications=notifications)

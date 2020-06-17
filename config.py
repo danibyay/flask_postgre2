@@ -4,12 +4,11 @@ app_dir = os.path.abspath(os.path.dirname(__file__))
 
 class BaseConfig:
     DEBUG = True
-    POSTGRES_USER= 'hello'
+    POSTGRES_USER= 'hello@postgreserver-nd'
     POSTGRES_PW = os.getenv('POSTGRE_SERVER_PW') 
     POSTGRES_DB= 'techconfdb'
-    POSTGRES_SERVER= 'postgreserver-nd'
-    POSTGRES_URL="postgresql://{user}%40{server}@{server}.postgres.database.azure.com:5432/{db}".format(user=POSTGRES_USER,server=POSTGRES_SERVER,db=POSTGRES_DB)
-    DB_URL = 'postgresql://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
+    POSTGRES_SERVER= 'postgreserver-nd.postgres.database.azure.com'
+    DB_URL = 'postgresql://{user}:{pw}@{host}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,host=POSTGRES_SERVER,db=POSTGRES_DB)
     SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI') or DB_URL
     CONFERENCE_ID = 1
     SQLALCHEMY_TRACK_MODIFICATIONS = False
